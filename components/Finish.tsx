@@ -1,5 +1,6 @@
 type TmpProbs = {
   chosedplan: string;
+  priceplan: number;
   pro: boolean;
   advanced: boolean;
   arcade: boolean;
@@ -8,44 +9,15 @@ type TmpProbs = {
   email: string;
   phone: string;
   period: string;
-  svc: string[];
+  svc: { svctitle: string; svcprice: number }[];
 };
 
-type SVCtype = {
-  svctitle: string;
-  subtitle: string;
-  svcprice: number;
-};
-const listServices: SVCtype[] = [
-  {
-    svctitle: "Online service",
-    subtitle: "Access to multiplayer games",
-    svcprice: 1,
-  },
-  {
-    svctitle: "Larger storage",
-    subtitle: "Extra 1TB of cloud save",
-    svcprice: 2,
-  },
-  {
-    svctitle: "Customizable Profile",
-    subtitle: "Custom theme on your profile",
-    svcprice: 2,
-  },
-];
+function Finish({ priceplan, chosedplan, period, svc }: TmpProbs) {
+  const totalPrice = svc.reduce(
+    (total, service) => total + service.svcprice,
+    0
+  );
 
-function Finish({
-  username,
-  email,
-  phone,
-  chosedplan,
-  pro,
-  advanced,
-  arcade,
-  isChecked,
-  period,
-  svc,
-}: TmpProbs) {
   return (
     <div className="flex flex-col">
       <h1>
@@ -53,17 +25,20 @@ function Finish({
       </h1>
       <br />
       <br />
+      <p>Plan Price : {priceplan}</p>
 
       {svc.map((el, i) => (
-        <div key={i} className="flex flex-col">
-          <h1> {el} </h1>
+        <div key={i} className="flex justify-between items-center">
+          <h1> {el.svctitle} </h1>
+          <h2> {el.svcprice}</h2>
         </div>
       ))}
 
       <div className="h-0 w-full border "></div>
-      <h1>{username}</h1>
-      <h1>{email}</h1>
-      <h1>{phone}</h1>
+      <div className="flex justify-between items-center bg-slate-100">
+        <h1>Total SVC prices :</h1>
+        <h2>{totalPrice}</h2>
+      </div>
     </div>
   );
 }

@@ -7,8 +7,11 @@ import AdvancedIcon from "@/assets/images/icon-advanced.svg";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import StepsWaraper from "./ui/StepsWaraper";
+import { cookies } from "next/headers";
+import { useEffect } from "react";
 type DataPlan = {
   chosedplan: string;
+  priceplan: number;
   period: string;
   advanced: boolean;
   pro: boolean;
@@ -21,6 +24,7 @@ type plansProbs = DataPlan & {
 
 export default function Plans({
   chosedplan,
+  priceplan,
   period,
   updatefields,
   arcade,
@@ -28,11 +32,78 @@ export default function Plans({
   advanced,
   isChecked,
 }: plansProbs) {
-  const handleChange = () => {
+  const switchhandleChange = () => {
     updatefields({ isChecked: !isChecked });
     if (!isChecked) updatefields({ period: "Yearly" });
     else updatefields({ period: "Monthly" });
   };
+
+  useEffect(() => {
+    // Check if priceplan is set correctly
+    if (period === "Monthly") {
+      if (chosedplan === "Arcade") updatefields({ priceplan: 9 });
+      if (chosedplan === "Advanced") updatefields({ priceplan: 12 });
+      if (chosedplan === "Pro") updatefields({ priceplan: 15 });
+    } else if (period === "Yearly") {
+      if (chosedplan === "Arcade") updatefields({ priceplan: 90 });
+      if (chosedplan === "Advanced") updatefields({ priceplan: 120 });
+      if (chosedplan === "Pro") updatefields({ priceplan: 150 });
+    }
+  }, [period, chosedplan]);
+  const ArcadeHandleClick = () => {
+    if (!arcade) {
+      if (period === "Monthly") {
+        updatefields({
+          advanced: false,
+          pro: false,
+          arcade: true,
+          chosedplan: "Arcade",
+          priceplan: 9,
+        });
+        console.log("Arcade monthly");
+      } else {
+        updatefields({
+          advanced: false,
+          pro: false,
+          arcade: true,
+          chosedplan: "Arcade",
+          priceplan: 90,
+        });
+        console.log("Arcade Yearly");
+      }
+    } else {
+      updatefields({ arcade: false, chosedplan: "", priceplan: 0 });
+      console.log("Arcade Not Checked");
+    }
+  };
+
+  const AdvancedClick = () => {
+    if (!advanced) {
+      if (period === "Monthly") {
+        updatefields({
+          arcade: false,
+          pro: false,
+          advanced: true,
+          chosedplan: "Advanced",
+          priceplan: 12,
+        });
+        console.log("Advanced  mounthly");
+      } else {
+        updatefields({
+          arcade: false,
+          pro: false,
+          advanced: true,
+          chosedplan: "Advanced",
+          priceplan: 120,
+        });
+        console.log("Advanced  Yearly");
+      }
+    } else {
+      updatefields({ advanced: false, chosedplan: "", priceplan: 0 });
+      console.log("Advanced Not Checked");
+    }
+  };
+
   return (
     <StepsWaraper
       title="Select your plan"
@@ -46,28 +117,14 @@ export default function Plans({
               "border rounded-lg  p-4 flex flex-col justify-between min-h-[80px] cursor-pointer  border-gray-300",
               arcade ? " bg-[#e6f2ff]" : "bg-white"
             )}
-            onClick={() => {
-              if (!arcade) {
-                updatefields({ advanced: false });
-                updatefields({ pro: false });
-                updatefields({ chosedplan: "Arcade" });
-              }
-              updatefields({ arcade: !arcade });
-            }}
+            onClick={ArcadeHandleClick}
           >
             <PlanItem icon={ArcadeIcon} title={"Arcade"} period={period} />
           </div>
 
           {/* 2nd Elemnts */}
           <div
-            onClick={() => {
-              if (!advanced) {
-                updatefields({ arcade: false });
-                updatefields({ pro: false });
-                updatefields({ chosedplan: "Advanced" });
-              }
-              updatefields({ advanced: !advanced });
-            }}
+            onClick={AdvancedClick}
             className={clsx(
               "border rounded-lg  p-4 flex flex-col justify-between min-h-40 cursor-pointer  border-gray-300",
               advanced ? " bg-[#e6f2ff]" : "bg-white"
@@ -79,13 +136,13 @@ export default function Plans({
           <div
             onClick={() => {
               if (!pro) {
-                updatefields({ advanced: false });
-                updatefields({ arcade: false });
-              }
-              updatefields({ pro: !pro });
-              if (pro) {
-                updatefields({ chosedplan: "Pro" });
-              }
+                updatefields({
+                  arcade: false,
+                  advanced: false,
+                  pro: true,
+                  chosedplan: "Pro",
+                });
+              } else updatefields({ pro: false, chosedplan: "" });
             }}
             className={clsx(
               "border rounded-lg  p-4 flex flex-col justify-between min-h-40 cursor-pointer  border-gray-300",
@@ -103,7 +160,7 @@ export default function Plans({
           <Switch
             id="airplane-mode"
             checked={isChecked}
-            onCheckedChange={handleChange}
+            onCheckedChange={switchhandleChange}
           />
           <Label
             htmlFor="airplane-mode"

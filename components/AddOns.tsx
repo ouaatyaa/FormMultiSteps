@@ -18,9 +18,8 @@ const listSubstitle = [
     svcprice: 2,
   },
 ];
-
 type mysvc = {
-  svc: string[];
+  svc: { svctitle: string; svcprice: number }[];
 };
 type ProbsAddons = mysvc & {
   updatefields: (fields: Partial<mysvc>) => void;
@@ -30,20 +29,16 @@ export default function AddOns({ svc, updatefields }: ProbsAddons) {
   const handleChangeCK = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = e.target;
     if (checked) {
-      // Update the pricipal State Data
-      // setchoosen((pre) => [...pre, value]);
-      svc.push(value);
+      const prix = listSubstitle.filter((el) => el.svctitle === value)[0]
+        .svcprice;
+      svc.push({ svctitle: value, svcprice: prix });
       updatefields({ svc });
     } else {
-      /*    setchoosen((pre) => {
-        return [...pre].filter((el) => el !== value);
-      }); */
-      svc = svc.filter((el) => el !== value);
+      svc = svc.filter((el) => el.svctitle !== value);
       updatefields({ svc });
     }
   };
 
-  // console.log(svc);
   return (
     <StepsWaraper
       title="Pick add-ons"
@@ -55,15 +50,18 @@ export default function AddOns({ svc, updatefields }: ProbsAddons) {
             key={i}
             className={cn(
               " border-[1.9] border border-gray-500 py-2 px-2  rounded-md  w-full flex  justify-between items-center space-x-2",
-              svc.includes(item.svctitle) && " border-Pastelblue bg-[#e6f2ff]"
+              svc.filter((el) => el.svctitle === item.svctitle).length !== 0 &&
+                " border-Pastelblue bg-[#e6f2ff]"
             )}
           >
             <div className=" group flex  justify-between items-center space-x-2 ">
               <input
                 type="checkbox"
                 id="terms1"
-                checked={svc.includes(item.svctitle)}
                 name="checkbox1"
+                checked={
+                  svc.filter((el) => el.svctitle === item.svctitle).length !== 0
+                }
                 value={item.svctitle}
                 onChange={(e) => handleChangeCK(e)}
               />

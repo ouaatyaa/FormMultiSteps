@@ -19,7 +19,8 @@ type MyFormType = {
   advanced: boolean;
   isChecked: boolean;
   period: string;
-  svc: string[];
+  priceplan: number;
+  svc: { svctitle: string; svcprice: number }[];
 };
 
 /* a ajouter 2step : plan (pro,advanced,Arcade) - retention(Monthly,yearly) */
@@ -27,14 +28,16 @@ const INTIALIZE_DATA: MyFormType = {
   username: "",
   email: "",
   phone: "",
-  chosedplan: "",
-  arcade: false,
+  chosedplan: "Arcade",
+  priceplan: 9,
+  arcade: true,
   pro: false,
   advanced: false,
   isChecked: false,
-  period: "",
+  period: "Monthly",
   svc: [],
 };
+
 function MainSteps() {
   const [data, setData] = useState(INTIALIZE_DATA);
   const {
