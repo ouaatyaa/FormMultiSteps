@@ -7,7 +7,6 @@ import AdvancedIcon from "@/assets/images/icon-advanced.svg";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import StepsWaraper from "./ui/StepsWaraper";
-import { cookies } from "next/headers";
 import { useEffect } from "react";
 type DataPlan = {
   chosedplan: string;
@@ -50,7 +49,7 @@ export default function Plans({
       if (chosedplan === "Pro") updatefields({ priceplan: 150 });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [period, chosedplan]);
   const ArcadeHandleClick = () => {
     if (!arcade) {
       if (period === "Monthly") {
