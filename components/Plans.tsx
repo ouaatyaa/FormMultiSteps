@@ -49,7 +49,7 @@ export default function Plans({
       if (chosedplan === "Advanced") updatefields({ priceplan: 120 });
       if (chosedplan === "Pro") updatefields({ priceplan: 150 });
     }
-  }, [period, chosedplan, updatefields]);
+  }, []);
   const ArcadeHandleClick = () => {
     if (!arcade) {
       if (period === "Monthly") {
@@ -60,7 +60,6 @@ export default function Plans({
           chosedplan: "Arcade",
           priceplan: 9,
         });
-        console.log("Arcade monthly");
       } else {
         updatefields({
           advanced: false,
@@ -69,11 +68,9 @@ export default function Plans({
           chosedplan: "Arcade",
           priceplan: 90,
         });
-        console.log("Arcade Yearly");
       }
     } else {
       updatefields({ arcade: false, chosedplan: "", priceplan: 0 });
-      console.log("Arcade Not Checked");
     }
   };
 
@@ -87,7 +84,6 @@ export default function Plans({
           chosedplan: "Advanced",
           priceplan: 12,
         });
-        console.log("Advanced  mounthly");
       } else {
         updatefields({
           arcade: false,
@@ -96,11 +92,9 @@ export default function Plans({
           chosedplan: "Advanced",
           priceplan: 120,
         });
-        console.log("Advanced  Yearly");
       }
     } else {
       updatefields({ advanced: false, chosedplan: "", priceplan: 0 });
-      console.log("Advanced Not Checked");
     }
   };
 
