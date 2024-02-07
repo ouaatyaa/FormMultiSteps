@@ -49,7 +49,7 @@ export default function Plans({
       if (chosedplan === "Advanced") updatefields({ priceplan: 120 });
       if (chosedplan === "Pro") updatefields({ priceplan: 150 });
     }
-  }, [period, chosedplan]);
+  }, [period, chosedplan, updatefields]);
   const ArcadeHandleClick = () => {
     if (!arcade) {
       if (period === "Monthly") {
