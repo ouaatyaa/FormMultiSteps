@@ -49,6 +49,7 @@ export default function Plans({
       if (chosedplan === "Advanced") updatefields({ priceplan: 120 });
       if (chosedplan === "Pro") updatefields({ priceplan: 150 });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const ArcadeHandleClick = () => {
     if (!arcade) {
