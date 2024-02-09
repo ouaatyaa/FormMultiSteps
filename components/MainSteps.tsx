@@ -69,24 +69,24 @@ function MainSteps() {
   }
   return (
     <>
-      <div className=" mb-4 p-2 bg-white rounded-lg  w-full h-full flex flex-col md:flex-row justify-between shadow-lg ">
-        {/* SideBar left div */}
+      <div className=" mb-4 p-2 bg-white rounded-lg  w-full min-h-[460px] flex flex-col md:flex-row justify-between shadow-lg relative">
+        {/* ... SideBar left div */}
         <SideBar currentStepIndex={currentStepIndex} />
-        {/* right div */}
+        {/* ... right div */}
         <form
           onSubmit={handleSubmit}
-          className="w-full flex flex-col justify-between px-10 py-4"
+          className="top-0 z-50 right-0 w-full flex flex-col justify-between px-0 md:px-10 py-4"
         >
           {/*... steps... */}
           {step}
           {/* Control Div Btn Next & Back */}
-          <div className=" relative h-12 w-full px-10 py-2">
+          <div className=" relative h-12 w-full px-10 py-5">
             {currentStepIndex !== 0 && (
               <Button
                 type="button"
                 onClick={back}
                 variant={"ghost"}
-                className="absolute left-4 top-0"
+                className="absolute left-0 top-0 "
               >
                 Go Back
               </Button>
@@ -102,6 +102,16 @@ function MainSteps() {
             </Button>
           </div>
         </form>
+        {currentStepIndex === 3 && (
+          <button
+            className="absolute hidden font-semibold md:block md:z-50 md:top-[40%] md:left-[34%]  underline cursor-pointer text-gray-500 hover:text-black"
+            onClick={() => {
+              goTo(1);
+            }}
+          >
+            change
+          </button>
+        )}
       </div>
     </>
   );

@@ -103,8 +103,8 @@ export default function Plans({
       title="Select your plan"
       subtitle="You have the option of monthly or yearly billing."
     >
-      <div className="flex flex-col gap-6 items-start justify-between">
-        <div className="grid gap-4 md:grid-cols-3 min-w-[450px] bg-white">
+      <div className="flex-grow flex  flex-col gap-6 items-start justify-between">
+        <div className="grid gap-4 md:grid-cols-3 min-w-[450px] bg-white ">
           {/* 1st Elemnts */}
           <div
             className={clsx(

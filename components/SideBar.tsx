@@ -1,5 +1,6 @@
 import Image from "next/image";
 import sidebar from "@/assets/images/bg-sidebar-desktop.svg";
+import mobileimg from "@/assets/images/bg-sidebar-mobile.svg";
 import { cn } from "@/lib/utils";
 
 const list = [
@@ -28,8 +29,17 @@ type SideBarType = {
 function SideBar({ currentStepIndex }: SideBarType) {
   return (
     <div className="relative ">
-      <Image src={sidebar} alt="SideBar image" className=" " />
-      <div className=" flex flex-col p-6 gap-4 items-start justify-start  absolute top-0 left-0 w-full  z-10">
+      <Image
+        src={sidebar}
+        alt="SideBar image"
+        className=" hidden md:block w-full h-full object-cover"
+      />
+      <Image
+        src={mobileimg}
+        alt="SideBar image"
+        className="block md:hidden w-full"
+      />
+      <div className=" flex flew-row md:flex-col p-6 gap-4 items-start justify-start  absolute  bottom-0 left-[30%] md:top-0 md:left-0 w-full  z-10">
         {list.map((item) => (
           <div
             key={item.id}
@@ -45,7 +55,7 @@ function SideBar({ currentStepIndex }: SideBarType) {
             >
               {item.id + 1}
             </div>
-            <div className="hidden  md:flex  flex-col text-white text-start ">
+            <div className="hidden  md:flex flex-col text-white text-start ">
               <p className=" text-sm text-muted-foreground text-slate-300">
                 STEP {item.id + 1}
               </p>
