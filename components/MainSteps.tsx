@@ -104,7 +104,7 @@ function MainSteps() {
         </form>
         {currentStepIndex === 3 && (
           <button
-            className="absolute hidden font-semibold md:block md:z-50 md:top-[40%] md:left-[34%]  underline cursor-pointer text-gray-500 hover:text-black"
+            className="fixed py-0 md:top-[32%] md:left-[39.5%]   hidden font-semibold md:block md:z-50   underline cursor-pointer text-gray-500 hover:text-black"
             onClick={() => {
               goTo(1);
             }}

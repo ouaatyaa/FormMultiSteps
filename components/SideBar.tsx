@@ -28,18 +28,18 @@ type SideBarType = {
 
 function SideBar({ currentStepIndex }: SideBarType) {
   return (
-    <div className="relative ">
+    <div className="relative overflow-hidden">
       <Image
         src={sidebar}
         alt="SideBar image"
-        className=" hidden md:block w-full h-full object-cover"
+        className=" hidden md:block object-cover "
       />
       <Image
         src={mobileimg}
         alt="SideBar image"
-        className="block md:hidden w-full"
+        className="block md:hidden object-cover w-full "
       />
-      <div className=" flex flew-row md:flex-col p-6 gap-4 items-start justify-start  absolute  bottom-0 left-[30%] md:top-0 md:left-0 w-full  z-10">
+      <div className=" flex flew-row md:flex-col p-6 gap-4 items-start justify-start  absolute  top-0 left-[30%]  md:left-0 w-full  z-10">
         {list.map((item) => (
           <div
             key={item.id}
